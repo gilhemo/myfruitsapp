@@ -1,0 +1,46 @@
+.FruitHeader {
+  list-style: none;
+  width: 80%;
+  height: 100px;
+  margin: 20px 10px;
+  display: flex;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  flex-direction: row;
+}
+
+.FruitHeader img {
+  width: 100px;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  float: left;
+}
+
+.FruitHeader h3 {
+  margin: auto 10px;
+}
+
+.NoPhoto {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+}
+
+.FruitName {
+  margin: auto 10px;
+  font-size: 16px;
+}
+
+.FavStar {
+  color: yellow;
+  background-color: white;
+  border: 0;
+  size: 1.17em;
+}
+
+.WikiButton {
+  margin-bottom: 5px;
+  margin: auto 10px;
+}

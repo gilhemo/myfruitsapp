@@ -1,0 +1,9 @@
+.Content {
+  margin-top: 10px;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

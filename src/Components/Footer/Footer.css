@@ -1,0 +1,17 @@
+.Footer {
+  width: 100%;
+  background-color: black;
+  color: #ccc;
+  text-align: center;
+  font-size: 10px;
+
+  height: 56px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Footer footer div {
+  padding: 10px 17px;
+}

@@ -1,0 +1,17 @@
+.Fruit {
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
+}
+
+.Link {
+  text-decoration: none;
+  color: black;
+}
+
+.Link:hover {
+  color: blue;
+  cursor: pointer;
+}
