@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import { generatePath } from "react-router-dom";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 import Fruit from "../Fruits/Fruit/Fruit";
-import "./Favorites.css";
+
+const Ul = styled.ul`
+  list-style: none;
+  width: 80%;
+  margin: 20px auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  text-align: left;
+`;
 
 class Favorites extends Component {
   render() {
@@ -16,9 +25,9 @@ class Favorites extends Component {
       ));
     }
     return (
-      <div className="Fruits">
+      <div>
         <nav>
-          <ul>{favorites}</ul>
+          <Ul>{favorites}</Ul>
         </nav>
       </div>
     );

@@ -1,14 +1,29 @@
 import React from "react";
+import styled from "styled-components";
 
-import "./Footer.css";
+const Wrapper = styled.footer`
+  width: 100%;
+  background-color: black;
+  color: #ccc;
+  text-align: center;
+  font-size: 10px;
+  height: 11vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledDiv = styled.div`
+  padding: 10px 17px;
+`;
 
 const footer = (props) => {
   return (
-    <div className="Footer">
-      <footer>
-        <div>All Rights Reserved | Terms and Conditions | Privacy Policy</div>
-      </footer>
-    </div>
+    <Wrapper>
+      <StyledDiv>
+        All Rights Reserved | Terms and Conditions | Privacy Policy
+      </StyledDiv>
+    </Wrapper>
   );
 };
 

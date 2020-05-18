@@ -1,9 +1,25 @@
 import React, { Component } from "react";
 import { generatePath } from "react-router-dom";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 import Fruit from "./Fruit/Fruit";
-import "./Fruits.css";
+
+const Wrapper = styled.div`
+  list-style: none;
+  width: 80%;
+  height: 90%;
+  margin: 10px auto;
+  text-align: left;
+`;
+
+const Ul = styled.ul`
+  margin: auto;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  text-align: left;
+`;
 
 class Fruits extends Component {
   render() {
@@ -13,11 +29,11 @@ class Fruits extends Component {
       </Fruit>
     ));
     return (
-      <div className="Fruits">
+      <Wrapper>
         <nav>
-          <ul>{fruits}</ul>
+          <Ul>{fruits}</Ul>
         </nav>
-      </div>
+      </Wrapper>
     );
   }
 }

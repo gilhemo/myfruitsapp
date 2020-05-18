@@ -1,9 +1,63 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 import FruitHeader from "../../Components/FruitHeader/FruitHeader";
-import "./FruitDetails.css";
 import * as actions from "../../store/actions/actions";
+
+const StyledDiv = styled.div`
+  list-style: none;
+  width: 80%;
+  height: 90%;
+  margin: 10px auto;
+  text-align: left;
+`;
+
+const StyledTextarea = styled.textarea`
+  width: 90%;
+  height: 250px;
+  margin: 10px;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  text-align: left;
+  display: block;
+  resize: none;
+  line-height: 1.5;
+  overflow-y: auto;
+  color: black;
+  background-color: white;
+  cursor: text;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  flex-direction: column;
+`;
+
+const StyledH1 = styled.h1`
+  margin: 10px;
+`;
+
+const StyledH4 = styled.h4`
+  margin: 10px;
+`;
+
+const EditButton = styled.button`
+  color: blue;
+  background-color: white;
+  border: 0;
+  size: 1.17em;
+`;
+
+const BackButton = styled.button`
+  color: darkblue;
+  size: 1.17em;
+  font-weight: bold;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  margin: auto 10px;
+`;
 
 class FruitDetails extends Component {
   state = {
@@ -55,24 +109,22 @@ class FruitDetails extends Component {
 
   render() {
     return (
-      <div className="FruitDetails">
-        <button className="BackButton" onClick={this.BackHanlder}>
-          &#8249; Back
-        </button>
-        <h1>Fruit info</h1>
+      <StyledDiv>
+        <BackButton onClick={this.BackHanlder}>&#8249; Back</BackButton>
+        <StyledH1>Fruit info</StyledH1>
         <FruitHeader
           photoSrc={this.props.fruits[this.props.match.params.id - 1].photoUrl}
           fruitName={this.props.fruits[this.props.match.params.id - 1].name}
           clicked={this.FavoritesHandler}
           favBtnStyle={this.state.favBtnType}
         />
-        <h4>
+        <StyledH4>
           Description:
-          <button className="EditButton" onClick={this.editHanlder}>
+          <EditButton onClick={this.editHanlder}>
             <i className="fas fa-square-full"></i>
-          </button>
-        </h4>
-        <textarea
+          </EditButton>
+        </StyledH4>
+        <StyledTextarea
           placeholder={
             this.props.fruits[this.props.match.params.id - 1].description
           }
@@ -80,8 +132,8 @@ class FruitDetails extends Component {
           disabled={this.state.editable}
         >
           {this.props.fruits[this.props.match.params.id - 1].description}
-        </textarea>
-      </div>
+        </StyledTextarea>
+      </StyledDiv>
     );
   }
 }
