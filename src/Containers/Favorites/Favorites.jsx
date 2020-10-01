@@ -7,7 +7,7 @@ import Fruit from '../Fruits/Fruit/Fruit';
 
 const Ul = styled.ul`
   list-style: none;
-  width: 80%;
+  width: 81%;
   margin: 20px auto;
   border: 1px solid #eee;
   box-shadow: 0 2px 3px #ccc;
