@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import "./Fruit.css";
+import './Fruit.css';
 
 class Fruit extends Component {
   render() {

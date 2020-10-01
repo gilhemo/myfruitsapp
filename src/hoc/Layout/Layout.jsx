@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
-import Toolbar from "../../Components/Toolbar/Toolbar";
-import Footer from "../../Components/Footer/Footer";
+import Toolbar from '../../Components/Toolbar/Toolbar';
+import Footer from '../../Components/Footer/Footer';
 
 const DivContainer = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ class Layout extends Component {
   render() {
     return (
       <DivContainer>
-        <Toolbar />
+        <Toolbar isAuth={this.props.isAuth} />
         <MainContent>{this.props.children}</MainContent>
         <Footer />
       </DivContainer>

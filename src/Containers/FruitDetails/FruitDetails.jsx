@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 
-import FruitHeader from "../../Components/FruitHeader/FruitHeader";
-import * as actions from "../../store/actions/actions";
+import FruitHeader from '../../Components/FruitHeader/FruitHeader';
+import * as actions from '../../store/actions/actions';
 
 const StyledDiv = styled.div`
   list-style: none;
@@ -62,17 +62,20 @@ const BackButton = styled.button`
 class FruitDetails extends Component {
   state = {
     editable: true,
-    favBtnType: "far fa-star",
+    favBtnType: 'far fa-star',
     isFav:
       this.props.favorites &&
       this.props.favorites.find(
         (fav) => fav.key === this.props.match.params.id
       ),
+    fruitIndex: this.props.fruits.findIndex(
+      (f) => f._id === this.props.match.params.id
+    ),
   };
 
   componentDidMount() {
     if (this.state.isFav) {
-      this.setState({ favBtnType: "fas fa-star" });
+      this.setState({ favBtnType: 'fas fa-star' });
     }
   }
   BackHanlder = () => {
@@ -82,7 +85,7 @@ class FruitDetails extends Component {
   FavoritesHandler = () => {
     const setFav = [];
     setFav.push({
-      ...this.props.fruits[this.props.match.params.id - 1],
+      ...this.props.fruits[this.state.fruitIndex],
       key: this.props.match.params.id,
     });
     if (
@@ -90,10 +93,10 @@ class FruitDetails extends Component {
       this.props.favorites.find((fav) => fav.key === this.props.match.params.id)
     ) {
       this.props.onRemoveFavorites(this.props.match.params.id);
-      this.setState({ favBtnType: "far fa-star" });
+      this.setState({ favBtnType: 'far fa-star' });
     } else {
       this.props.onAddFavorites(setFav);
-      this.setState({ favBtnType: "fas fa-star" });
+      this.setState({ favBtnType: 'fas fa-star' });
     }
   };
 
@@ -102,9 +105,8 @@ class FruitDetails extends Component {
   };
 
   changeInputHandler = (event) => {
-    this.props.fruits[this.props.match.params.id - 1].description =
-      event.target.value;
-    this.props.onChangeHandler(event.target.value, this.props.match.params.id);
+    this.props.fruits[this.state.fruitIndex].description = event.target.value;
+    this.props.onUpdateFruit(event.target.value, this.props.match.params.id);
   };
 
   render() {
@@ -113,25 +115,23 @@ class FruitDetails extends Component {
         <BackButton onClick={this.BackHanlder}>&#8249; Back</BackButton>
         <StyledH1>Fruit info</StyledH1>
         <FruitHeader
-          photoSrc={this.props.fruits[this.props.match.params.id - 1].photoUrl}
-          fruitName={this.props.fruits[this.props.match.params.id - 1].name}
+          photoSrc={this.props.fruits[this.state.fruitIndex].photoUrl}
+          fruitName={this.props.fruits[this.state.fruitIndex].name}
           clicked={this.FavoritesHandler}
           favBtnStyle={this.state.favBtnType}
         />
         <StyledH4>
           Description:
           <EditButton onClick={this.editHanlder}>
-            <i className="fas fa-square-full"></i>
+            <i className="fa fa-pencil"></i>
           </EditButton>
         </StyledH4>
         <StyledTextarea
-          placeholder={
-            this.props.fruits[this.props.match.params.id - 1].description
-          }
+          placeholder={this.props.fruits[this.state.fruitIndex].description}
           onChange={(event) => this.changeInputHandler(event)}
           disabled={this.state.editable}
         >
-          {this.props.fruits[this.props.match.params.id - 1].description}
+          {this.props.fruits[this.state.fruitIndex].description}
         </StyledTextarea>
       </StyledDiv>
     );
@@ -149,7 +149,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAddFavorites: (setFav) => dispatch(actions.addFavorites(setFav)),
     onRemoveFavorites: (favId) => dispatch(actions.removeFavorites(favId)),
-    onChangeHandler: (val, id) => dispatch(actions.changeHandler(val, id)),
+    onUpdateFruit: (val, id) => dispatch(actions.updateFruit(val, id)),
   };
 };
 

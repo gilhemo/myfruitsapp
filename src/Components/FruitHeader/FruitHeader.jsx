@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   list-style: none;
@@ -46,9 +46,18 @@ const FavoriteButton = styled.button`
 const WikiButton = styled.button`
   margin-bottom: 5px;
   margin: auto 10px;
+  background-color: white;
+  border: 1px solid black;
+`;
+
+const StyledWikiLink = styled.a`
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
 `;
 
 const fruitHeader = (props) => {
+  const wikiLink = 'https://en.wikipedia.org/wiki/' + props.fruitName;
   return (
     <Wrapper>
       <StyledImg src={props.photoSrc} alt="Fruit" />
@@ -60,7 +69,9 @@ const fruitHeader = (props) => {
             <i className={props.favBtnStyle}></i>
           </FavoriteButton>
         </StyledH3>
-        <WikiButton>Show in wiki</WikiButton>
+        <WikiButton>
+          <StyledWikiLink href={wikiLink}>Show in wiki</StyledWikiLink>
+        </WikiButton>
       </StyledDiv>
     </Wrapper>
   );

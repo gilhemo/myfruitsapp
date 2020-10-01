@@ -1,9 +1,13 @@
-import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
   fruits: null,
   favorites: [],
+  isAuth: false,
+  token: null,
+  userId: null,
+  authRedirectPath: '/',
 };
 
 const setFruits = (state, action) => {
@@ -33,6 +37,37 @@ const changeHanlder = (state, action) => {
   });
 };
 
+const authSignup = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    isAuth: false,
+    authRedirectPath: '/fruits',
+  });
+};
+
+const authLogin = (state, action) => {
+  return updateObject(state, {
+    token: action.token,
+    userId: action.userId,
+    isAuth: true,
+  });
+};
+
+const authFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error,
+  });
+};
+
+const authLogout = (state, action) => {
+  return updateObject(state, {
+    token: null,
+    userId: null,
+    isAuth: false,
+    authRedirectPath: '/',
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_FRUITS:
@@ -43,6 +78,14 @@ const reducer = (state = initialState, action) => {
       return removeFavorites(state, action);
     case actionTypes.CHANGE_HANDLER:
       return changeHanlder(state, action);
+    case actionTypes.AUTH_SIGNUP:
+      return authSignup(state, action);
+    case actionTypes.AUTH_LOGIN:
+      return authLogin(state, action);
+    case actionTypes.AUTH_FAIL:
+      return authFail(state, action);
+    case actionTypes.AUTH_LOGOUT:
+      return authLogout(state, action);
     default:
       return state;
   }

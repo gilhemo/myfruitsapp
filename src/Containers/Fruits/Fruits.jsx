@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { generatePath } from "react-router-dom";
-import { connect } from "react-redux";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { generatePath } from 'react-router-dom';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 
-import Fruit from "./Fruit/Fruit";
+import Fruit from './Fruit/Fruit';
 
 const Wrapper = styled.div`
   list-style: none;
@@ -24,7 +24,7 @@ const Ul = styled.ul`
 class Fruits extends Component {
   render() {
     const fruits = this.props.fruits.map((fruit) => (
-      <Fruit key={fruit.id} link={generatePath("/:id", { id: fruit.id })}>
+      <Fruit key={fruit._id} link={generatePath('/:id', { id: fruit._id })}>
         {fruit.name}
       </Fruit>
     ));
@@ -43,5 +43,11 @@ const mapStateToProps = (state) => {
     fruits: state.reducer.fruits,
   };
 };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onInitFruits: () => dispatch(actions.initFruits()),
+//   };
+// };
 
 export default connect(mapStateToProps)(Fruits);

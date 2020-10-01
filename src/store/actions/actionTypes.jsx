@@ -1,7 +1,12 @@
-export const SET_FRUITS = "SET_FRUITS";
-export const FETCH_FRUITS_FAILED = "FETCH_FRUITS_FAILED";
+export const SET_FRUITS = 'SET_FRUITS';
+export const FETCH_FRUITS_FAILED = 'FETCH_FRUITS_FAILED';
 
-export const ADD_FAVORITES = "ADD_FAVORITES";
-export const REMOVE_FAVORITES = "REMOVE_FAVORITES";
+export const ADD_FAVORITES = 'ADD_FAVORITES';
+export const REMOVE_FAVORITES = 'REMOVE_FAVORITES';
 
-export const CHANGE_HANDLER = "CHANGE_HANDLER";
+export const CHANGE_HANDLER = 'CHANGE_HANDLER';
+
+export const AUTH_SIGNUP = 'AUTH_SIGNUP';
+export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';

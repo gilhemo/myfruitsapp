@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import NavItems from "../NavItems/NavItems";
+import NavItems from '../NavItems/NavItems';
 
 const Header = styled.header`
   height: 56px;
@@ -26,7 +26,7 @@ const Nav = styled.nav`
 const toolbar = (props) => (
   <Header>
     <Nav>
-      <NavItems />
+      <NavItems isAuth={props.isAuth} />
     </Nav>
   </Header>
 );

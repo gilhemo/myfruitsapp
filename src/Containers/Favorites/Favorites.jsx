@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { generatePath } from "react-router-dom";
-import { connect } from "react-redux";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { generatePath } from 'react-router-dom';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
 
-import Fruit from "../Fruits/Fruit/Fruit";
+import Fruit from '../Fruits/Fruit/Fruit';
 
 const Ul = styled.ul`
   list-style: none;
@@ -19,7 +19,7 @@ class Favorites extends Component {
     let favorites = <p>Please Choose Favorites!</p>;
     if (this.props.favorites) {
       favorites = this.props.favorites.map((fruit) => (
-        <Fruit key={fruit.id} link={generatePath("/:id", { id: fruit.id })}>
+        <Fruit key={fruit._id} link={generatePath('/:id', { id: fruit._id })}>
           {fruit.name}
         </Fruit>
       ));
