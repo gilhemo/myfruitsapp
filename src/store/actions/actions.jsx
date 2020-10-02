@@ -9,7 +9,7 @@ export const setFruits = (fruits) => {
 
 export const initFruits = (token) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/feed/fruits', {
+    fetch('https://gilhemo.github.io/fruitsnodejs/feed/fruits', {
       Authorization: 'Bearer ' + token,
     })
       .then((res) => {
@@ -49,7 +49,7 @@ export const changeHandler = (val, id) => {
 
 export const updateFruit = (val, fruitId) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/feed/fruit/' + fruitId, {
+    fetch('https://gilhemo.github.io/fruitsnodejs/feed/fruit/' + fruitId, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export const authLogout = () => {
 
 export const login = (authData) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/auth/login', {
+    fetch('https://gilhemo.github.io/fruitsnodejs/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export const login = (authData) => {
 
 export const signup = (authData) => {
   return (dispatch) => {
-    fetch('http://localhost:8080/auth/signup', {
+    fetch('https://gilhemo.github.io/fruitsnodejs/auth/signup', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
