@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { generatePath } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import Fruit from './Fruit/Fruit';
+import * as actions from '../../store/actions/actions';
 
 const Wrapper = styled.div`
   list-style: none;
@@ -21,33 +22,33 @@ const Ul = styled.ul`
   text-align: left;
 `;
 
-class Fruits extends Component {
-  render() {
-    const fruits = this.props.fruits.map((fruit) => (
-      <Fruit key={fruit._id} link={generatePath('/:id', { id: fruit._id })}>
-        {fruit.name}
-      </Fruit>
-    ));
-    return (
-      <Wrapper>
-        <nav>
-          <Ul>{fruits}</Ul>
-        </nav>
-      </Wrapper>
-    );
-  }
-}
+const fruits = (props) => {
+  const fruits = props.fruits.map((fruit) => (
+    <Fruit key={fruit._id} link={generatePath('/:id', { id: fruit._id })}>
+      {fruit.name}
+    </Fruit>
+  ));
+
+  return (
+    <Wrapper>
+      <nav>
+        <Ul>{fruits}</Ul>
+      </nav>
+    </Wrapper>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
     fruits: state.reducer.fruits,
+    token: state.reducer.token,
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onInitFruits: () => dispatch(actions.initFruits()),
-//   };
-// };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onInitFruits: (token) => dispatch(actions.initFruits(token)),
+  };
+};
 
-export default connect(mapStateToProps)(Fruits);
+export default connect(mapStateToProps, mapDispatchToProps)(fruits);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -59,84 +59,80 @@ const BackButton = styled.button`
   margin: auto 10px;
 `;
 
-class FruitDetails extends Component {
-  state = {
-    editable: true,
-    favBtnType: 'far fa-star',
-    isFav:
-      this.props.favorites &&
-      this.props.favorites.find(
-        (fav) => fav.key === this.props.match.params.id
-      ),
-    fruitIndex: this.props.fruits.findIndex(
-      (f) => f._id === this.props.match.params.id
-    ),
-  };
+const fruitDetails = (props) => {
+  const [editable, setEditable] = useState(true);
+  const [favBtnType, setFavBtnType] = useState('far fa-star');
+  const [isFav, setIsFav] = useState(
+    props.favorites &&
+      props.favorites.find((fav) => fav.key === props.match.params.id)
+  );
+  const [fruitIndex, setFruitIndex] = useState(
+    props.fruits.findIndex((f) => f._id === props.match.params.id)
+  );
 
-  componentDidMount() {
-    if (this.state.isFav) {
-      this.setState({ favBtnType: 'fas fa-star' });
+  useEffect(() => {
+    if (isFav) {
+      setFavBtnType('fas fa-star');
     }
-  }
-  BackHanlder = () => {
-    this.props.history.goBack();
+  }, []);
+
+  const BackHanlder = () => {
+    props.history.goBack();
   };
 
-  FavoritesHandler = () => {
+  const FavoritesHandler = () => {
     const setFav = [];
     setFav.push({
-      ...this.props.fruits[this.state.fruitIndex],
-      key: this.props.match.params.id,
+      ...props.fruits[fruitIndex],
+      key: props.match.params.id,
     });
     if (
-      this.props.favorites &&
-      this.props.favorites.find((fav) => fav.key === this.props.match.params.id)
+      props.favorites &&
+      props.favorites.find((fav) => fav.key === props.match.params.id)
     ) {
-      this.props.onRemoveFavorites(this.props.match.params.id);
-      this.setState({ favBtnType: 'far fa-star' });
+      props.onRemoveFavorites(props.match.params.id);
+      setFavBtnType('far fa-star');
     } else {
-      this.props.onAddFavorites(setFav);
-      this.setState({ favBtnType: 'fas fa-star' });
+      props.onAddFavorites(setFav);
+      setFavBtnType('fas fa-star');
     }
   };
 
-  editHanlder = () => {
-    this.setState({ editable: !this.state.editable });
+  const editHanlder = () => {
+    setEditable(!editable);
   };
 
-  changeInputHandler = (event) => {
-    this.props.fruits[this.state.fruitIndex].description = event.target.value;
-    this.props.onUpdateFruit(event.target.value, this.props.match.params.id);
+  const changeInputHandler = (event) => {
+    props.fruits[fruitIndex].description = event.target.value;
+    props.onUpdateFruit(event.target.value, props.match.params.id);
   };
 
-  render() {
-    return (
-      <StyledDiv>
-        <BackButton onClick={this.BackHanlder}>&#8249; Back</BackButton>
-        <StyledH1>Fruit info</StyledH1>
-        <FruitHeader
-          photoSrc={this.props.fruits[this.state.fruitIndex].photoUrl}
-          fruitName={this.props.fruits[this.state.fruitIndex].name}
-          clicked={this.FavoritesHandler}
-          favBtnStyle={this.state.favBtnType}
-        />
-        <StyledH4>
-          Description:
-          <EditButton onClick={this.editHanlder}>
-            <i className="fa fa-pencil"></i>
-          </EditButton>
-        </StyledH4>
-        <StyledTextarea
-          placeholder={this.props.fruits[this.state.fruitIndex].description}
-          onChange={(event) => this.changeInputHandler(event)}
-          disabled={this.state.editable}
-        >
-          {this.props.fruits[this.state.fruitIndex].description}
-        </StyledTextarea>
-      </StyledDiv>
-    );
-  }
-}
+  return (
+    <StyledDiv>
+      <BackButton onClick={BackHanlder}>&#8249; Back</BackButton>
+      <StyledH1>Fruit info</StyledH1>
+      <FruitHeader
+        photoSrc={props.fruits[fruitIndex].photoUrl}
+        fruitName={props.fruits[fruitIndex].name}
+        clicked={FavoritesHandler}
+        favBtnStyle={favBtnType}
+      />
+      <StyledH4>
+        Description:
+        <EditButton onClick={editHanlder}>
+          <i className="fa fa-pencil"></i>
+        </EditButton>
+      </StyledH4>
+      <StyledTextarea
+        placeholder={props.fruits[fruitIndex].description}
+        onChange={(event) => changeInputHandler(event)}
+        disabled={editable}
+      >
+        {props.fruits[fruitIndex].description}
+      </StyledTextarea>
+    </StyledDiv>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -153,4 +149,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FruitDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(fruitDetails);

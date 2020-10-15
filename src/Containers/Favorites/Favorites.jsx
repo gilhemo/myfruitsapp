@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { generatePath } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -14,25 +14,23 @@ const Ul = styled.ul`
   text-align: left;
 `;
 
-class Favorites extends Component {
-  render() {
-    let favorites = <p>Please Choose Favorites!</p>;
-    if (this.props.favorites) {
-      favorites = this.props.favorites.map((fruit) => (
-        <Fruit key={fruit._id} link={generatePath('/:id', { id: fruit._id })}>
-          {fruit.name}
-        </Fruit>
-      ));
-    }
-    return (
-      <div>
-        <nav>
-          <Ul>{favorites}</Ul>
-        </nav>
-      </div>
-    );
+const favorites = (props) => {
+  let favorites = <p>Please Choose Favorites!</p>;
+  if (props.favorites) {
+    favorites = props.favorites.map((fruit) => (
+      <Fruit key={fruit._id} link={generatePath('/:id', { id: fruit._id })}>
+        {fruit.name}
+      </Fruit>
+    ));
   }
-}
+  return (
+    <div>
+      <nav>
+        <Ul>{favorites}</Ul>
+      </nav>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -41,4 +39,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps)(favorites);

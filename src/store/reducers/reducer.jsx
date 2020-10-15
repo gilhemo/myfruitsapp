@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
-  fruits: null,
+  fruits: [],
   favorites: [],
   isAuth: false,
   token: null,

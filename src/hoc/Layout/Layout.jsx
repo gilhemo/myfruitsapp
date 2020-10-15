@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Toolbar from '../../Components/Toolbar/Toolbar';
@@ -15,16 +15,14 @@ const MainContent = styled.main`
   height: 79vh;
 `;
 
-class Layout extends Component {
-  render() {
-    return (
-      <DivContainer>
-        <Toolbar isAuth={this.props.isAuth} />
-        <MainContent>{this.props.children}</MainContent>
-        <Footer />
-      </DivContainer>
-    );
-  }
-}
+const layout = (props) => {
+  return (
+    <DivContainer>
+      <Toolbar isAuth={props.isAuth} />
+      <MainContent>{props.children}</MainContent>
+      <Footer />
+    </DivContainer>
+  );
+};
 
-export default Layout;
+export default layout;

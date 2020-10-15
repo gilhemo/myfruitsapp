@@ -9,7 +9,11 @@ export const setFruits = (fruits) => {
 
 export const initFruits = (token) => {
   return (dispatch) => {
-    fetch('https://localhost:8080/feed/fruits', {
+    fetch('http://localhost:8080/feed/fruits', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       Authorization: 'Bearer ' + token,
     })
       .then((res) => {
@@ -49,7 +53,7 @@ export const changeHandler = (val, id) => {
 
 export const updateFruit = (val, fruitId) => {
   return (dispatch) => {
-    fetch('https://localhost:8080/feed/fruit/' + fruitId, {
+    fetch('http://localhost:8080/feed/fruit/' + fruitId, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +107,7 @@ export const authLogout = () => {
 
 export const login = (authData) => {
   return (dispatch) => {
-    fetch('https://localhost:8080/auth/login', {
+    fetch('http://localhost:8080/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -133,7 +137,6 @@ export const login = (authData) => {
           new Date().getTime() + remainingMilliseconds
         );
         localStorage.setItem('expiryDate', expiryDate.toISOString());
-        this.setAutoLogout(remainingMilliseconds);
       })
       .catch((err) => {
         console.log(err);
@@ -144,7 +147,7 @@ export const login = (authData) => {
 
 export const signup = (authData) => {
   return (dispatch) => {
-    fetch('https://localhost:8080/auth/signup', {
+    fetch('http://localhost:8080/auth/signup', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

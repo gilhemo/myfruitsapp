@@ -14,7 +14,6 @@ const Ul = styled.ul`
 `;
 
 const navItems = (props) => {
-  console.log(props);
   let navs = (
     <Ul>
       <NavItem link="/">Login</NavItem>

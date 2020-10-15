@@ -1,18 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import './Fruit.css';
+import styled from 'styled-components';
 
-class Fruit extends Component {
-  render() {
-    return (
-      <li className="fruit">
-        <NavLink className="link" to={this.props.link}>
-          {this.props.children}
-        </NavLink>
-      </li>
-    );
+const StyledList = styled.li`
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
+`;
+
+const StyledNavLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
   }
-}
 
-export default Fruit;
+  &:hover {
+  color: blue;
+  cursor: pointer;
+  }
+`;
+
+const fruit = (props) => {
+  return (
+    <StyledList>
+      <StyledNavLink to={props.link}>{props.children}</StyledNavLink>
+    </StyledList>
+  );
+};
+
+export default fruit;

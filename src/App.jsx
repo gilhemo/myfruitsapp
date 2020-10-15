@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -13,79 +13,75 @@ import Logout from './Containers/Auth/logout';
 
 import * as actions from './store/actions/actions';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onInitFruits(this.props.token);
+const app = (props) => {
+  useEffect(() => {
+    props.onInitFruits(props.token);
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     if (!token || !expiryDate) {
       return;
     }
     if (new Date(expiryDate) <= new Date()) {
-      this.logoutHandler();
+      logoutHandler();
       return;
     }
     const userId = localStorage.getItem('userId');
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
-    this.setState({ isAuth: true, token: token, userId: userId });
-    this.setAutoLogout(remainingMilliseconds);
-  }
+    props.onAuthLogin(token, userId);
+    setAutoLogout(remainingMilliseconds);
+  }, []);
 
-  logoutHandler = () => {
-    this.props.onLogout();
+  const logoutHandler = () => {
+    props.onLogout();
   };
 
-  loginHandler = (event, authData) => {
+  const loginHandler = (event, authData) => {
     event.preventDefault();
-    this.props.onLogin(authData);
+    props.onLogin(authData);
   };
 
-  signupHandler = (event, authData) => {
+  const signupHandler = (event, authData) => {
     event.preventDefault();
-    this.props.onSignup(authData);
-    this.props.history.replace('/');
+    props.onSignup(authData);
+    props.history.replace('/');
   };
 
-  setAutoLogout = (milliseconds) => {
+  const setAutoLogout = (milliseconds) => {
     setTimeout(() => {
-      this.logoutHandler();
+      logoutHandler();
     }, milliseconds);
   };
 
-  render() {
-    let routes = (
+  let routes = (
+    <Switch>
+      <Route
+        path="/"
+        exact
+        render={(props) => <Login {...props} onLogin={loginHandler} />}
+      />
+      <Route
+        path="/signup"
+        exact
+        render={(props) => <Signup {...props} onSignup={signupHandler} />}
+      />
+      <Redirect to="/" />
+    </Switch>
+  );
+  if (props.isAuth) {
+    routes = (
       <Switch>
-        <Route
-          path="/"
-          exact
-          render={(props) => <Login {...props} onLogin={this.loginHandler} />}
-        />
-        <Route
-          path="/signup"
-          exact
-          render={(props) => (
-            <Signup {...props} onSignup={this.signupHandler} />
-          )}
-        />
+        <Route path="/logout" component={Logout} />
+        <Route path="/favorites" component={Favorites} />
+        <Route path="/:id" component={FruitDetails} />
+        <Route path="/" exact component={Fruits} />
         <Redirect to="/" />
       </Switch>
     );
-    if (this.props.isAuth) {
-      routes = (
-        <Switch>
-          <Route path="/logout" component={Logout} />
-          <Route path="/favorites" component={Favorites} />
-          <Route path="/:id" component={FruitDetails} />
-          <Route path="/" exact component={Fruits} />
-          <Redirect to="/" />
-        </Switch>
-      );
-    }
-
-    return <Layout isAuth={this.props.isAuth}>{routes}</Layout>;
   }
-}
+
+  return <Layout isAuth={props.isAuth}>{routes}</Layout>;
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -102,7 +98,8 @@ const mapDispatchToProps = (dispatch) => {
     onSignup: (authData) => dispatch(actions.signup(authData)),
     onLogin: (authData) => dispatch(actions.login(authData)),
     onLogout: () => dispatch(actions.authLogout()),
+    onAuthLogin: (token, userId) => dispatch(actions.authLogin(token, userId)),
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
