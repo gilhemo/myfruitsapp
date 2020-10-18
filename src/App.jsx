@@ -15,7 +15,7 @@ import * as actions from './store/actions/actions';
 
 const app = (props) => {
   useEffect(() => {
-    props.onInitFruits(props.token);
+    props.onInitFruits();
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
     if (!token || !expiryDate) {

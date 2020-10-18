@@ -7,14 +7,13 @@ export const setFruits = (fruits) => {
   };
 };
 
-export const initFruits = (token) => {
+export const initFruits = () => {
   return (dispatch) => {
     fetch('http://localhost:8080/feed/fruits', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      Authorization: 'Bearer ' + token,
     })
       .then((res) => {
         if (res.status !== 200) {
@@ -128,7 +127,6 @@ export const login = (authData) => {
         return res.json();
       })
       .then((resData) => {
-        console.log(resData);
         localStorage.setItem('token', resData.token);
         localStorage.setItem('userId', resData.userId);
         dispatch(authLogin(resData.token, resData.userId));
